@@ -5,10 +5,31 @@ import Application from '@ioc:Adonis/Core/Application'
 import crypto from 'crypto'
 
 export default class PointsController {
-  public async index (ctx: HttpContextContract) {
-    const points = Point.all()
+  public async index ({request}: HttpContextContract) {
+    const {city, uf, items} = request.get()
 
-    return points
+    const parsedItems = String(items)
+      .split(',')
+      .map(item => Number(item.trim()))
+
+    const points = await Point
+      .query() // 👈now have access to a
+      .join('point_items', 'points.id', '=', 'point_items.point_id')
+      .whereIn('point_items.item_id', parsedItems)
+      .where('city', 'like', `%${String(city)}%`)
+      .where('uf', String(uf))
+      .distinct()
+      .select('points.*')
+
+    const serializedPoints = points.map(p => {
+      const point = p.$attributes
+      return {
+        ...point,
+        image_url: `${process.env.BASE_URL}/uploads/${point.image}`,
+      }
+    })
+
+    return serializedPoints
   }
 
   public async store ({request}: HttpContextContract) {
