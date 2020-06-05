@@ -5,10 +5,8 @@
 :rocket: Technologies
 
 - NodeJS
-- ExpressJS
+- AdonisJS 5 Alpha
 - Typescript
-- Knex  
-- JWT
 
 :blue_book: Refs
 
