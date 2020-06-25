@@ -1,6 +1,6 @@
 # Ecoleta Server API
 
-![alt text](https://github.com/marciocamello/nlw-ecoleta-server/blob/master/capa.jpeg)
+![alt text](https://github.com/marciocamello/nlw-ecoleta-server-adonis5alpha/blob/master/capa.jpeg)
 
 ---
 
